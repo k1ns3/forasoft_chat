@@ -4,6 +4,8 @@ const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 
+app.use(express.json());
+
 const rooms = new Map([]);
 
 app.get('/rooms', (request, response) => {
@@ -11,7 +13,18 @@ app.get('/rooms', (request, response) => {
 });
 
 app.post('/rooms', (request, response) => {
-  console.log("hello word");
+  const { roomId, userName } = request.body;
+
+  if (!rooms.has(roomId)) {
+    rooms.set(
+      roomId,
+      new Map([
+        ['users', new Map()],
+        ['messages', []],
+      ])
+    );
+  }
+  response.send();
 });
 
 io.on('connection', (socket) => {
