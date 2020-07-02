@@ -11,7 +11,7 @@ app.get('/rooms', (request, response) => {
 });
 
 app.post('/rooms', (request, response) => {
-  console.log(hello);
+  console.log("hello word");
 });
 
 io.on('connection', (socket) => {
