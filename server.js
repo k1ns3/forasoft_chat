@@ -37,6 +37,16 @@ io.on('connection', (socket) => {
     // Все пользователи кроме меня получают список всех юзеров
     socket.to(roomId).broadcast.emit('ROOM:JOINED', users);
   });
+
+  socket.on('disconnect', () => {
+    rooms.forEach((value, roomId) => {
+      if (value.get('users').delete(socket.id)) {
+        const users = [...rooms.get(roomId).get('users').values()];
+        socket.to(roomId).broadcast.emit('ROOM:SET_USERS', users);
+      }
+    });
+  });
+
   console.log('user connected', socket.id);
 });
 

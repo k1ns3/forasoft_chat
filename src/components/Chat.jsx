@@ -8,9 +8,11 @@ function Chat({ users, messages, userName, roomId, onAddMessage }) {
   return (
     <div className="chat">
       <div className="chat-users">
-        <b>Пользователей онлайн (1):</b>
+        <b>Пользователей онлайн ({users.length}):</b>
         <ul>
-          <li>Test User </li>
+          {users.map((name, index) => (
+            <li key={`${name}_${index}`}>{name}</li>
+          ))}
         </ul>
       </div>
       <div className="chat-messages">
