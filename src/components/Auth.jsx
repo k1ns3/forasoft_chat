@@ -1,20 +1,22 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-import socket from '../socket';
-
-function Auth() {
+function Auth({ onLogin }) {
   const [roomId, setRoomId] = useState('');
   const [userName, setUserName] = useState('');
+  const [isLoading, setLoading] = useState(false);
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     if (!roomId || !userName) {
       return alert('Заполните все поля');
     }
-    axios.post('/rooms', {
-      roomId,
-      userName,
-    });
+    setLoading(true);
+    await axios
+      .post('/rooms', {
+        roomId,
+        userName,
+      })
+      .then(onLogin);
   };
 
   return (
@@ -31,8 +33,11 @@ function Auth() {
         value={userName}
         onChange={(event) => setUserName(event.target.value)}
       />
-      <button onClick={onSubmit} className="btn btn-success">
-        ВОЙТИ
+      <button
+        disabled={isLoading}
+        onClick={onSubmit}
+        className="btn btn-success">
+        {isLoading ? 'ВХОД...' : 'ВОЙТИ'}
       </button>
     </div>
   );
