@@ -1,16 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import socket from '../socket';
 
 function Chat({ users, messages, userName, roomId, onAddMessage }) {
-  const [messageValue, setMessageValue] = React.useState('');
+  const [messageValue, setMessageValue] = useState('');
 
   return (
     <div className="chat">
       <div className="chat-users">
-        <b>Онлайн (1):</b>
+        <b>Пользователей онлайн (1):</b>
         <ul>
-          <li>Test User</li>
+          <li>Test User </li>
         </ul>
       </div>
       <div className="chat-messages">

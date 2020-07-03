@@ -6,7 +6,7 @@
 }
 
 .wrapper {
-  max-width: 40%;
+  max-width: 60%;
   margin: 100px auto;
   min-width: 720px;
 }
@@ -70,7 +70,7 @@
   display: inline-flex;
   border-radius: 10px;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
-  background-color: #7160ff;
+  background: linear-gradient(to bottom right, #12076d, #9490b4);
   padding: 10px 15px 15px;
   color: #fff;
   margin-bottom: 2px;
@@ -104,5 +104,6 @@
 
 .chat-messages form textarea {
   width: 100%;
+  min-height: 70px;
   margin-bottom: 10px;
 }
