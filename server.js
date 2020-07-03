@@ -8,8 +8,17 @@ app.use(express.json());
 
 const rooms = new Map([]);
 
-app.get('/rooms', (request, response) => {
-  response.json(rooms);
+app.get('/rooms/:id', (request, response) => {
+  const { id: roomId } = request.params;
+  console.log(roomId);
+
+  const obj = rooms.has(roomId)
+    ? {
+        users: [...rooms.get(roomId).get('users').values()],
+        messages: [...rooms.get(roomId).get('messages').values()],
+      }
+    : { users: [], messages: [] };
+  response.json(obj);
 });
 
 app.post('/rooms', (request, response) => {
@@ -35,7 +44,7 @@ io.on('connection', (socket) => {
     // Список всех пользователей в комнате
     const users = [...rooms.get(roomId).get('users').values()];
     // Все пользователи кроме меня получают список всех юзеров
-    socket.to(roomId).broadcast.emit('ROOM:JOINED', users);
+    socket.to(roomId).broadcast.emit('ROOM:SET_USERS', users);
   });
 
   socket.on('disconnect', () => {

@@ -1,4 +1,6 @@
 import React, { useReducer, useEffect } from 'react';
+import axios from 'axios';
+
 import socket from './socket';
 import reducer from './reducer';
 import { Join, Chat } from './components';
@@ -12,12 +14,14 @@ function App() {
     messages: [],
   });
 
-  const onLogin = (obj) => {
+  const onLogin = async (obj) => {
     dispatch({
       type: 'JOINED',
       payload: obj,
     });
     socket.emit('ROOM:JOIN', obj);
+    const { data } = await axios.get(`/rooms/${obj.roomId}`);
+    setUsers(data.users);
   };
 
   const setUsers = (users) => {
@@ -28,7 +32,6 @@ function App() {
   };
 
   useEffect(() => {
-    socket.on('ROOM:JOINED', setUsers);
     socket.on('ROOM:SET_USERS', setUsers);
   }, []);
 
