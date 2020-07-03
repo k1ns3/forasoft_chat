@@ -28,6 +28,15 @@ app.post('/rooms', (request, response) => {
 });
 
 io.on('connection', (socket) => {
+  socket.on('ROOM:JOIN', ({ roomId, userName }) => {
+    socket.join(roomId);
+    // Комната в коллекции, с коллекцией юзеров, у каждого юзера сфой socket id
+    rooms.get(roomId).get('users').set(socket.id, userName);
+    // Список всех пользователей в комнате
+    const users = [...rooms.get(roomId).get('users').values()];
+    // Все пользователи кроме меня получают список всех юзеров
+    socket.to(roomId).broadcast.emit('ROOM:JOINED', users);
+  });
   console.log('user connected', socket.id);
 });
 

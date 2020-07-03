@@ -3,7 +3,9 @@ export default (state, action) => {
     case 'JOINED':
       return {
         ...state,
-        isAuth: action.payload,
+        joined: true,
+        userName: action.payload.userName,
+        roomId: action.payload.roomId,
       };
 
     default:

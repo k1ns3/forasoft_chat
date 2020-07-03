@@ -1,22 +1,35 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useEffect } from 'react';
 import socket from './socket';
 import reducer from './reducer';
-import { Auth } from './components';
+import { Join, Chat } from './components';
 
 function App() {
   const [state, dispatch] = useReducer(reducer, {
     joined: false,
+    roomId: null,
+    userName: null,
   });
 
-  const onLogin = () => {
+  const onLogin = (obj) => {
     dispatch({
       type: 'JOINED',
-      payload: true,
+      payload: obj,
     });
+    socket.emit('ROOM:JOIN', obj);
   };
 
+  useEffect(() => {
+    socket.on('ROOM:JOINED', (users) => {
+      console.log('новый юзер', users);
+    });
+  }, []);
+
+  window.socket = socket;
+
   return (
-    <div className="wrapper">{!state.isAuth && <Auth onLogin={onLogin} />}</div>
+    <div className="wrapper">
+      {!state.joined ? <Join onLogin={onLogin} /> : <Chat />}
+    </div>
   );
 }
 

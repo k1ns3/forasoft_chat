@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-function Auth({ onLogin }) {
+function Join({ onLogin }) {
   const [roomId, setRoomId] = useState('');
   const [userName, setUserName] = useState('');
   const [isLoading, setLoading] = useState(false);
@@ -11,12 +11,12 @@ function Auth({ onLogin }) {
       return alert('Заполните все поля');
     }
     setLoading(true);
-    await axios
-      .post('/rooms', {
-        roomId,
-        userName,
-      })
-      .then(onLogin);
+    const obj = {
+      roomId,
+      userName,
+    };
+    await axios.post('/rooms', obj);
+    onLogin(obj);
   };
 
   return (
@@ -43,4 +43,4 @@ function Auth({ onLogin }) {
   );
 }
 
-export default Auth;
+export default Join;
