@@ -48,7 +48,9 @@ function Chat({ users, messages, userName, roomId, onAddMessage }) {
               <div key={`${message}_${index}`} className="message">
                 <p>{message.text}</p>
                 <div>
-                  <span>{message.userName}</span>
+                  <span>
+                    <strong>{message.userName}</strong>
+                  </span>
                   <span>{message.time}</span>
                 </div>
               </div>
