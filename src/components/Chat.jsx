@@ -12,11 +12,18 @@ function Chat({ users, messages, userName, roomId, onAddMessage }) {
         userName,
         roomId,
         text: messageValue,
+        time: getTimeSentMessage(),
       });
-      onAddMessage({ userName, text: messageValue });
+      onAddMessage({
+        userName,
+        text: messageValue,
+        time: getTimeSentMessage(),
+      });
       setMessageValue('');
     }
   };
+
+  const getTimeSentMessage = () => new Date().toLocaleTimeString().slice(0, -3);
 
   useEffect(() => {
     messageRef.current.scrollTo(0, 99999999);
@@ -37,17 +44,19 @@ function Chat({ users, messages, userName, roomId, onAddMessage }) {
       <div className="chat-messages">
         <div ref={messageRef} className="messages">
           {messages &&
-            messages.map((message) => (
-              <div className="message">
+            messages.map((message, index) => (
+              <div key={`${message}_${index}`} className="message">
                 <p>{message.text}</p>
                 <div>
                   <span>{message.userName}</span>
+                  <span>{message.time}</span>
                 </div>
               </div>
             ))}
         </div>
         <form>
           <textarea
+            placeholder="Напишите сообщение..."
             value={messageValue}
             onChange={(e) => setMessageValue(e.target.value)}
             className="form-control"
