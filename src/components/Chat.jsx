@@ -51,7 +51,7 @@ function Chat({ users, messages, userName, roomId, onAddMessage }) {
                   <span>
                     <strong>{message.userName}</strong>
                   </span>
-                  <span>{message.time}</span>
+                  <span>{`  ${message.time}`}</span>
                 </div>
               </div>
             ))}
