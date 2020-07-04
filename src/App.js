@@ -33,6 +33,12 @@ function App() {
 
   useEffect(() => {
     socket.on('ROOM:SET_USERS', setUsers);
+    socket.on('ROOM:NEW_MESSAGE', (message) => {
+      dispatch({
+        type: 'NEW_MESSAGE',
+        payload: message,
+      });
+    });
   }, []);
 
   window.socket = socket;
