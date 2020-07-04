@@ -31,21 +31,27 @@ function App() {
     });
   };
 
+  const addedMessaage = (message) => {
+    dispatch({
+      type: 'NEW_MESSAGE',
+      payload: message,
+    });
+  };
+
   useEffect(() => {
     socket.on('ROOM:SET_USERS', setUsers);
-    socket.on('ROOM:NEW_MESSAGE', (message) => {
-      dispatch({
-        type: 'NEW_MESSAGE',
-        payload: message,
-      });
-    });
+    socket.on('ROOM:NEW_MESSAGE', addedMessaage);
   }, []);
 
   window.socket = socket;
 
   return (
     <div className="wrapper">
-      {!state.joined ? <Join onLogin={onLogin} /> : <Chat {...state} />}
+      {!state.joined ? (
+        <Join onLogin={onLogin} />
+      ) : (
+        <Chat {...state} onAddMessage={addedMessaage} />
+      )}
     </div>
   );
 }

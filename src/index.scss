@@ -6,7 +6,7 @@
 }
 
 .wrapper {
-  max-width: 60%;
+  max-width: 40%;
   margin: 100px auto;
   min-width: 720px;
 }
@@ -20,6 +20,7 @@
 .join-block {
   margin: 0 auto;
   width: 300px;
+
   input {
     font-size: 24px;
     width: 100%;
@@ -28,6 +29,7 @@
     padding-left: 10px;
     margin-bottom: 10px;
   }
+
   button {
     width: 100%;
     padding: 10px;
@@ -49,10 +51,12 @@
     padding: 20px;
     width: 200px;
     background-color: #f6f9fa;
+
     ul {
       list-style: none;
       padding: 0;
       margin: 0;
+
       li {
         margin-top: 10px;
         border-radius: 3px;
@@ -63,17 +67,19 @@
       }
     }
   }
-  
+
   &-messages {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     flex: 1;
     padding: 30px;
+
     form {
       margin-top: 20px;
       padding-top: 20px;
       border-top: 1px solid rgba(0, 0, 0, 0.1);
+
       textarea {
         width: 100%;
         min-height: 70px;
@@ -85,6 +91,7 @@
 
 .message {
   margin-bottom: 20px;
+
   p {
     display: inline-flex;
     border-radius: 10px;
@@ -94,6 +101,7 @@
     color: #fff;
     margin-bottom: 2px;
   }
+
   span {
     opacity: 0.5;
     font-size: 14px;
