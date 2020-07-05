@@ -13,12 +13,19 @@ export default (state, action) => {
         ...state,
         users: action.payload.users,
         messages: action.payload.messages,
+        roomsIds: action.payload.roomsIds,
       };
 
     case 'SET_USERS':
       return {
         ...state,
         users: action.payload,
+      };
+
+    case 'SET_ROOMS':
+      return {
+        ...state,
+        roomsIds: action.payload,
       };
 
     case 'NEW_MESSAGE':

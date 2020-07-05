@@ -2,9 +2,11 @@ import React, { useState, useRef, useEffect } from 'react';
 
 import socket from '../socket';
 
-function Chat({ users, messages, userName, roomId, onAddMessage }) {
+function Chat({ users, roomsIds, messages, userName, roomId, onAddMessage }) {
   const [messageValue, setMessageValue] = useState('');
   const messageRef = useRef(null);
+
+  // console.log(rooms);
 
   const onSendMessage = () => {
     if (messageValue !== '') {
@@ -13,6 +15,7 @@ function Chat({ users, messages, userName, roomId, onAddMessage }) {
         roomId,
         text: messageValue,
         time: getTimeSentMessage(),
+        roomsIds,
       });
       onAddMessage({
         userName,
@@ -70,6 +73,16 @@ function Chat({ users, messages, userName, roomId, onAddMessage }) {
             Отправить
           </button>
         </form>
+      </div>
+      <div className="chat-users">
+        Комнат: <strong>{roomsIds.length}</strong>
+        <hr />
+        <ul>
+          {roomsIds &&
+            roomsIds.map((name, index) => (
+              <li key={`${name}_${index}`}>{`Комната: ${name}`}</li>
+            ))}
+        </ul>
       </div>
     </div>
   );

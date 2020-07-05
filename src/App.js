@@ -10,6 +10,7 @@ function App() {
     joined: false,
     roomId: null,
     userName: null,
+    roomsIds: [],
     users: [],
     messages: [],
   });
@@ -34,6 +35,13 @@ function App() {
     });
   };
 
+  const setRooms = (roomsIds) => {
+    dispatch({
+      type: 'SET_ROOMS',
+      payload: roomsIds,
+    });
+  };
+
   const addedMessaage = (message) => {
     dispatch({
       type: 'NEW_MESSAGE',
@@ -44,6 +52,7 @@ function App() {
   useEffect(() => {
     socket.on('ROOM:SET_USERS', setUsers);
     socket.on('ROOM:NEW_MESSAGE', addedMessaage);
+    socket.on('ROOM:SET_ROOMS', setRooms);
   }, []);
 
   window.socket = socket;

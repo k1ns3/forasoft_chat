@@ -1,4 +1,5 @@
 const express = require('express');
+const { request, response } = require('express');
 
 const app = express();
 const server = require('http').Server(app);
@@ -16,8 +17,9 @@ app.get('/rooms/:id', (request, response) => {
     ? {
         users: [...rooms.get(roomId).get('users').values()],
         messages: [...rooms.get(roomId).get('messages').values()],
+        roomsIds: [...rooms.keys()],
       }
-    : { users: [], messages: [] };
+    : { users: [], messages: [], roomsIds: [] };
   response.json(obj);
 });
 
@@ -30,6 +32,7 @@ app.post('/rooms', (request, response) => {
       new Map([
         ['users', new Map()],
         ['messages', []],
+        ['rooms', []],
       ])
     );
   }
@@ -42,6 +45,9 @@ io.on('connection', (socket) => {
     rooms.get(roomId).get('users').set(socket.id, userName);
     const users = [...rooms.get(roomId).get('users').values()];
     socket.to(roomId).broadcast.emit('ROOM:SET_USERS', users);
+    const roomsIds = [...rooms.keys()];
+    socket.to(roomId).broadcast.emit('ROOM:SET_ROOMS', roomsIds);
+    console.log('Комнаты: ', roomsIds);
   });
 
   socket.on('ROOM:NEW_MESSAGE', ({ roomId, userName, text, time }) => {
