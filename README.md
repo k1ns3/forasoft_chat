@@ -22,6 +22,8 @@ npm run express
 ```
 npm run start
 ```
+### Демонстрация работы 
+![](https://im2.ezgif.com/tmp/ezgif-2-efcd830314f8.gif)
 ### Главный экран
 ![text](https://sun9-22.userapi.com/fzx3i6FT8xcNwUvkobKmWbbiebgHdSO16UCI9w/BOXBLwydtDw.jpg)
 ### Вводим данные для входа 
