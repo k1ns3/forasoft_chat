@@ -1,12 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
+import axios from 'axios';
 
 import socket from '../socket';
 
 function Chat({ users, roomsIds, messages, userName, roomId, onAddMessage }) {
   const [messageValue, setMessageValue] = useState('');
   const messageRef = useRef(null);
-
-  // console.log(rooms);
 
   const onSendMessage = () => {
     if (messageValue !== '') {
@@ -80,7 +79,7 @@ function Chat({ users, roomsIds, messages, userName, roomId, onAddMessage }) {
         <ul>
           {roomsIds &&
             roomsIds.map((name, index) => (
-              <li key={`${name}_${index}`}>{`Комната: ${name}`}</li>
+              <li key={`${name}_${index}`}>Комната: {name}</li>
             ))}
         </ul>
       </div>

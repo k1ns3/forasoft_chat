@@ -11,7 +11,6 @@ const rooms = new Map([]);
 
 app.get('/rooms/:id', (request, response) => {
   const { id: roomId } = request.params;
-  console.log(roomId);
 
   const obj = rooms.has(roomId)
     ? {
@@ -47,7 +46,6 @@ io.on('connection', (socket) => {
     socket.to(roomId).broadcast.emit('ROOM:SET_USERS', users);
     const roomsIds = [...rooms.keys()];
     socket.to(roomId).broadcast.emit('ROOM:SET_ROOMS', roomsIds);
-    console.log('Комнаты: ', roomsIds);
   });
 
   socket.on('ROOM:NEW_MESSAGE', ({ roomId, userName, text, time }) => {
